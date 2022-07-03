@@ -6,8 +6,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author TanYuan
@@ -18,7 +23,7 @@ import java.io.Serializable;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends DataEntity implements Serializable {
+public class User extends DataEntity implements UserDetails {
 
     /**
      * 用户id
@@ -28,7 +33,7 @@ public class User extends DataEntity implements Serializable {
     /**
      * 用户账号
      */
-    private String account;
+    private String username;
 
     /**
      * 用户密码
@@ -38,5 +43,32 @@ public class User extends DataEntity implements Serializable {
     /**
      * 用户昵称
      */
-    private String userName;
+    private String nickName;
+
+    private List<Role> roles = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

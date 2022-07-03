@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "rsa.key.pubKeyPath",
+      "type": "java.lang.String",
+      "description": "Description for rsa.key.pubKeyPath."
+    },
+    {
+      "name": "rsa.key.priKeyPath",
+      "type": "java.lang.String",
+      "description": "Description for rsa.key.priKeyPath."
+    }
+  ]
+}

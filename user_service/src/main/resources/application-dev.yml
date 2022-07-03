@@ -33,3 +33,7 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: assign_uuid
+rsa:
+  key:
+    pubKeyPath: user_service/src/main/resources/doc/blog_key_rsa.pub
+    priKeyPath: user_service/src/main/resources/doc/blog_key_rsa
