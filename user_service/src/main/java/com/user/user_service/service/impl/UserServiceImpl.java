@@ -1,5 +1,6 @@
 package com.user.user_service.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.com.entity.entity.User;
 import com.user.user_service.mapper.UserMapper;
@@ -9,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * @author TanYuan
@@ -29,6 +32,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+        QueryWrapper<User> query = new QueryWrapper<>();
+        query.eq("username", s);
+        User user = this.baseMapper.selectOne(query);
+
+        return Optional.ofNullable(user).orElse(new User());
     }
 }

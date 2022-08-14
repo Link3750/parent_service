@@ -36,8 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 认证用户的来源
      *
-     * @param auth
-     * @throws Exception
+     * @param auth 认证
+     * @throws Exception 异常
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -48,8 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 配置SpringSecurity相关信息
      *
-     * @param http
-     * @throws Exception
+     * @param http http请求
+     * @throws Exception 异常
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {

@@ -1,6 +1,7 @@
 package com.user.user_service.controller;
 
 import com.com.entity.common.WebResponse;
+import com.com.entity.enums.WebResponseEnum;
 
 /**
  * @author TanYuan
@@ -10,15 +11,19 @@ public class BaseController {
     public BaseController() {
     }
 
-    public WebResponse buildSuccessResponse(Object o) {
-        return WebResponse.builder().result(o).message("成功").statusCode("200").build();
+    @SuppressWarnings("unchecked")
+    public <T> WebResponse<T> buildSuccessResponse(T o) {
+        return (WebResponse<T>) WebResponse.builder()
+                .result(o).message(WebResponseEnum.SUCCESS.getDesc())
+                .statusCode(WebResponseEnum.SUCCESS.getCode()).build();
     }
 
-    public WebResponse buildSuccessResponse() {
+    public <T> WebResponse<T> buildSuccessResponse() {
         return buildSuccessResponse(null);
     }
 
-    public WebResponse buildErrorResponse(String message, String statusCode) {
-        return WebResponse.builder().message(message).statusCode(statusCode).build();
+    @SuppressWarnings("unchecked")
+    public <T> WebResponse<T> buildErrorResponse(String message, String statusCode) {
+        return (WebResponse<T>) WebResponse.builder().message(message).statusCode(statusCode).build();
     }
 }

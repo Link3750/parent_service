@@ -15,9 +15,9 @@ import java.io.Serializable;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WebResponse implements Serializable {
+public class  WebResponse<T> implements Serializable {
     private static final long SERIAL_VERSION_ID = 143243246534L;
     private String statusCode;
     private String message;
-    private Object result;
+    private T result;
 }

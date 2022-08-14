@@ -1,6 +1,7 @@
 package com.user.user_service.controller.userOperation;
 
 import com.com.entity.common.WebResponse;
+import com.com.entity.enums.WebResponseEnum;
 import com.user.user_service.controller.BaseController;
 import com.user.user_service.form.RegisterForm;
 import com.user.user_service.service.impl.UserServiceImpl;
@@ -23,10 +24,11 @@ public class LoginController extends BaseController {
     private UserServiceImpl userService;
 
     @PostMapping("/register")
-    public WebResponse register(@RequestBody RegisterForm registerForm) {
+    public WebResponse<String> register(@RequestBody RegisterForm registerForm) {
         if(!registerForm.getUser().getPassword().equals(registerForm.getConfirmPassword())) {
-            return buildErrorResponse("两次输入密码不一致", "403");
+            return buildErrorResponse("两次输入密码不一致", WebResponseEnum.UNAUTHORIZED.getCode());
         }
-        return userService.insertUser(registerForm.getUser()) == 1 ? buildSuccessResponse() : buildErrorResponse("注册失败", "500");
+        return userService.insertUser(registerForm.getUser()) == 1 ?
+                buildSuccessResponse() : buildErrorResponse("注册失败", "500");
     }
 }
