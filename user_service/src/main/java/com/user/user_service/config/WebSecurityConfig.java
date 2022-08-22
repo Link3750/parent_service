@@ -1,11 +1,14 @@
 package com.user.user_service.config;
 
 import com.user.user_service.filter.JwtLoginFilter;
+import com.user.user_service.filter.JwtVerifyFilter;
+import com.user.user_service.handler.LogoutHandler;
 import com.user.user_service.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -54,9 +57,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()  //关闭csrf
+                .authorizeRequests()
+                .antMatchers("/", "/home", "/v3/**","/logout").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .addFilter(new JwtLoginFilter(super.authenticationManager(),rsaKeyProperties))
                 //禁用session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(new JwtVerifyFilter(super.authenticationManager(),rsaKeyProperties))
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .logout().logoutUrl("/logout").logoutSuccessHandler(new LogoutHandler()).deleteCookies().permitAll();
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/**");
     }
 
 }
