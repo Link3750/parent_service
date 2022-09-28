@@ -27,13 +27,14 @@
         <jjwt-impl.version>0.10.7</jjwt-impl.version>
         <jjwt-jackson.version>0.10.7</jjwt-jackson.version>
         <joda-time.version>2.10.1</joda-time.version>
-        <alibaba-fastjson.version>1.2.76</alibaba-fastjson.version>
+        <alibaba-fastjson.version>2.0.14</alibaba-fastjson.version>
     </properties>
 
     <modules>
         <module>utils</module>
         <module>entity</module>
         <module>user_service</module>
+        <module>document_management</module>
     </modules>
 
     <dependencies>
@@ -61,7 +62,6 @@
             <version>${alibaba-fastjson.version}</version>
         </dependency>
     </dependencies>
-
     <dependencyManagement>
 
         <dependencies>
